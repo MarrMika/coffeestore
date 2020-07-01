@@ -1,6 +1,5 @@
 package com.coffeecraft.coffeestore;
 
-import com.coffeecraft.coffeestore.handler.CoffeeHandler;
 import com.coffeecraft.coffeestore.model.Coffee;
 import com.coffeecraft.coffeestore.repository.CoffeeRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -47,28 +46,28 @@ public class CoffeeStoreApplication {
 					.subscribe(System.out::println);
 		};
 	}
-	@Bean
-	RouterFunction<ServerResponse> routes(CoffeeHandler handler) {
-//		return route(GET("/coffees").and(accept(APPLICATION_JSON)), handler::getAllCoffees)
-//                .andRoute(POST("/coffees").and(accept(APPLICATION_JSON)), handler::saveCoffee)
-//                .andRoute(DELETE("/coffees").and(accept(APPLICATION_JSON)), handler::deleteAllCoffees)
-//                .andRoute(GET("/coffees/events").and(accept(TEXT_EVENT_STREAM)), handler::getCoffeeEvents)
-//                .andRoute(GET("/coffees/{id}").and(accept(APPLICATION_JSON)), handler::getCoffee)
-//                .andRoute(PUT("/coffees/{id}"), handler::updateCoffee)
-//                .andRoute(DELETE("/coffees/{id}").and(accept(APPLICATION_JSON)), handler::deleteCoffee);
-
-		return nest(path("/coffees"),
-                nest(accept(APPLICATION_JSON).or(contentType(APPLICATION_JSON)).or(contentType(TEXT_EVENT_STREAM)),
-                        route(GET("/"), handler::getAllCoffees)
-                            .andRoute(method(HttpMethod.POST), handler::saveCoffee)
-                            .andRoute(DELETE("/"), handler::deleteAllCoffees)
-                            .andRoute(GET("/events"), handler::getCoffeeEvents)
-                            .andNest(path("/{id}"),
-                                    route(method(HttpMethod.GET), handler::getCoffee)
-                                    .andRoute(method(HttpMethod.PUT), handler::updateCoffee)
-                                    .andRoute(method(HttpMethod.DELETE), handler::deleteCoffee)
-                            )
-                )
-        );
-	}
+//	@Bean
+//	RouterFunction<ServerResponse> routes(CoffeeHandler handler) {
+////		return route(GET("/coffees").and(accept(APPLICATION_JSON)), handler::getAllCoffees)
+////                .andRoute(POST("/coffees").and(accept(APPLICATION_JSON)), handler::saveCoffee)
+////                .andRoute(DELETE("/coffees").and(accept(APPLICATION_JSON)), handler::deleteAllCoffees)
+////                .andRoute(GET("/coffees/events").and(accept(TEXT_EVENT_STREAM)), handler::getCoffeeEvents)
+////                .andRoute(GET("/coffees/{id}").and(accept(APPLICATION_JSON)), handler::getCoffee)
+////                .andRoute(PUT("/coffees/{id}"), handler::updateCoffee)
+////                .andRoute(DELETE("/coffees/{id}").and(accept(APPLICATION_JSON)), handler::deleteCoffee);
+//
+//		return nest(path("/coffees"),
+//                nest(accept(APPLICATION_JSON).or(contentType(APPLICATION_JSON)).or(contentType(TEXT_EVENT_STREAM)),
+//                        route(GET("/"), handler::getAllCoffees)
+//                            .andRoute(method(HttpMethod.POST), handler::saveCoffee)
+//                            .andRoute(DELETE("/"), handler::deleteAllCoffees)
+//                            .andRoute(GET("/events"), handler::getCoffeeEvents)
+//                            .andNest(path("/{id}"),
+//                                    route(method(HttpMethod.GET), handler::getCoffee)
+//                                    .andRoute(method(HttpMethod.PUT), handler::updateCoffee)
+//                                    .andRoute(method(HttpMethod.DELETE), handler::deleteCoffee)
+//                            )
+//                )
+//        );
+//	}
 }
